@@ -586,7 +586,7 @@ final class Api_Service {
 	private function _is_api_request_allowed()
 	{
 		// STEP 1: Check to see if site is private
-		if(Kohana::config('settings.private_deployment'))
+		if(FALSE)
 		{
 			if ( ! $this->_login())
 			{
