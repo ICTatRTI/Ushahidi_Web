@@ -134,8 +134,10 @@ function showMap()
 	map.addLayers(<?php echo map::layers_array(FALSE); ?>);
 	
 	map.addControl(new OpenLayers.Control.Navigation());
-	map.addControl(new OpenLayers.Control.PanZoom());
-	map.addControl(new OpenLayers.Control.MousePosition());
+	map.addControl(new OpenLayers.Control.Zoom());
+	map.addControl(new OpenLayers.Control.MousePosition({
+		formatOutput: Ushahidi.convertLongLat	
+	}));
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	
 	// Create the markers layer

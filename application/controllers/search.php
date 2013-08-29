@@ -111,7 +111,7 @@ class Search_Controller extends Main_Controller {
 				$search_query = "SELECT *, (".$keyword_string.") AS relevance FROM "
 								. $this->table_prefix."incident "
 								. "WHERE ".$where_string." "
-								. "ORDER BY relevance DESC LIMIT ";
+								. "ORDER BY relevance DESC LIMIT ?, ?";
 			}
 		}
 		
@@ -124,7 +124,7 @@ class Search_Controller extends Main_Controller {
 				'total_items' => ORM::factory('incident')->where($where_string)->count_all()
 			));
 
-			$query = $db->query($search_query . $pagination->sql_offset . ",". (int)Kohana::config('settings.items_per_page'));
+			$query = $db->query($search_query, $pagination->sql_offset, (int)Kohana::config('settings.items_per_page'));
 
 			// Results Bar
 			if ($pagination->total_items != 0)
@@ -196,7 +196,7 @@ class Search_Controller extends Main_Controller {
 				$incident_date = date('D M j Y g:i:s a', strtotime($search->incident_date));
 
 				$html .= "<div class=\"search_result\">";
-				$html .= "<h3><a href=\"" . url::base() . "reports/view/" . $incident_id . "\">" . $highlight_title . "</a></h3>";
+				$html .= "<h3><a href=\"" . url::site( "reports/view/" . $incident_id) . "\">" . $highlight_title . "</a></h3>";
 				$html .= $highlight_description . " ...";
 				$html .= "<div class=\"search_date\">" . $incident_date . " | ".Kohana::lang('ui_admin.relevance').": <strong>+" . $search->relevance . "</strong></div>";
 				$html .= "</div>";
@@ -216,9 +216,5 @@ class Search_Controller extends Main_Controller {
 
 		$this->template->content->search_info = $search_info;
 		$this->template->content->search_results = $html;
-
-		// Rebuild Header Block
-		$this->template->header->header_block = $this->themes->header_block();
-		$this->template->footer->footer_block = $this->themes->footer_block();
     }
 }
