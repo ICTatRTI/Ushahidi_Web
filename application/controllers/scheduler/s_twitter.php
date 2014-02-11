@@ -74,7 +74,7 @@ class S_Twitter_Controller extends Controller {
 				$have_results = TRUE; //just starting us off as true, although there may be no results
 				while($have_results == TRUE AND $page <= 2)
 				{ //This loop is for pagination of twitter results
-					$hashtag = rawurlencode(trim(str_replace('#','',$hashtag)));
+					$hashtag = rawurlencode(trim($hashtag));
 					$twitter_url = $connection->get('search/tweets',array('count' => 100, 'q' => $hashtag));
 					$have_results = $this->add_hash_tweets($twitter_url);
 					$page++;
@@ -95,7 +95,7 @@ class S_Twitter_Controller extends Controller {
 		$service = $services->where('service_name', 'Twitter')->find();
 
 		$tweet_results = json_decode($data);
-		foreach($tweet_results ->statuses as $tweet)
+		foreach($tweet_results->statuses as $tweet)
 		{
 			$reporter = ORM::factory('reporter')
 				->where('service_id', $service->id)

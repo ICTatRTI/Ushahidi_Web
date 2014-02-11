@@ -48,6 +48,7 @@ class Geocoder_Core {
 	{
 		$base_url = "http://" . GEOCODER_GEONAMES . "/rssToGeoRSS?";
 
+
 		if ($feed_url)
 		{
 			// First check to make sure geonames webservice is running
@@ -55,19 +56,23 @@ class Geocoder_Core {
 
 			if ($geonames_status == "200")
 			{ // Successful
-				$request_url = $base_url . "&feedUrl=" . urlencode($feed_url);
+				$request_url = $base_url . "&feedUrl=" . urlencode($feed_url)."&username=ushahididev";
 			}
 			else
 			{ // Down perhaps?? Use direct feed
 				$request_url = $feed_url;
 			}
 
-			if ( ! ($georss = @file_get_contents($request_url)))
+
+			$request = new HttpClient($request_url);
+
+			if ( ! ($georss = $request->execute($request_url)))
 			{
 				// If the request failed, something may be wrong with the GEOCODER_GEONAMES service
 				return false;
 			}
 			//$georss = utf8_encode($georss);
+
 
 			return trim($georss);
 
