@@ -233,11 +233,7 @@ final class Api_Service {
 		}
 		else
 		{
-			
-			 if($this->auth->login( $this->request['u'], $this->request['p'])){
- 				return $this->auth->get_user()->id;
-			  }
-
+		
 
 			// Get username and password
 			if ($admin OR $member)
