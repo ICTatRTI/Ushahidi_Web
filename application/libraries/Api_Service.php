@@ -233,6 +233,12 @@ final class Api_Service {
 		}
 		else
 		{
+			
+			 if($this->auth->login( $this->request['u'], $this->request['p'])){
+ 				return $this->auth->get_user()->id;
+			  }
+
+
 			// Get username and password
 			if ($admin OR $member)
 			{
@@ -539,7 +545,7 @@ final class Api_Service {
 	private function _is_api_request_allowed()
 	{
 		// STEP 1: Check to see if site is private
-		if(FALSE)
+		if(  Kohana::config('settings.private_deployment') )
 		{
 			if ( ! $this->_login())
 			{
