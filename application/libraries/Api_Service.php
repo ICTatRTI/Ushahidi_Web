@@ -139,7 +139,7 @@ final class Api_Service {
 		{
 			// Set the response to "ACCESS DENIED"
 			$this->set_response($this->get_error_msg(006));
-			this->set_response_code(401);
+			$this->set_response_code(401);
 
 			// Terminate execution
 			return;
@@ -194,7 +194,7 @@ final class Api_Service {
 	 */
 	public function get_response_code()
 	{
-		return $this->$response_code:
+		return $this->response_code;
 	}
 
 	/**
