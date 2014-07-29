@@ -69,6 +69,12 @@ final class Api_Service {
 	 */
 	private $api_parameters;
 
+		/**
+	 * API request parameters
+	 * @var array
+	 */
+	private $response_code = 200;
+
 	/**
 	 * Api_Log_Model object
 	 * @var Api_Log_Model
@@ -133,6 +139,7 @@ final class Api_Service {
 		{
 			// Set the response to "ACCESS DENIED"
 			$this->set_response($this->get_error_msg(006));
+			this->set_response_code(401);
 
 			// Terminate execution
 			return;
@@ -167,6 +174,27 @@ final class Api_Service {
 	public function get_response_type()
 	{
 		return $this->response_type;
+	}
+
+
+	/**
+	 * Sets the response code
+	 *
+	 * @param $response_code New value for $this->response_code
+	 */
+	public function set_response_code($response_code)
+	{
+		$this->response_code = $response_code;
+	}
+
+	/**
+	 * Returns the response code
+	 *
+	 * @return string
+	 */
+	public function get_response_code()
+	{
+		return $this->$response_code:
 	}
 
 	/**

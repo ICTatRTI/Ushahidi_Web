@@ -54,17 +54,17 @@ class Api_Controller extends Controller {
 		
 		if ($api_service->get_response_type() == 'jsonp')
 		{
-			header("Content-type: application/json; charset=utf-8");
+			header("Content-type: application/json; charset=utf-8", true, $api_service->get_response_code());
 			$resp = $_GET['callback'].'('.$api_service->get_response().')';
 		}
 		elseif ($api_service->get_response_type() == 'xml')
 		{
-			header("Content-type: text/xml");    
+			header("Content-type: text/xml", true, $api_service->get_response_code());    
 			$resp = $api_service->get_response();
 		}
 		else
 		{
-			header("Content-type: application/json; charset=utf-8");
+			header("Content-type: application/json; charset=utf-8", true, $api_service->get_response_code());
 			$resp =  $api_service->get_response();
 		}
 
